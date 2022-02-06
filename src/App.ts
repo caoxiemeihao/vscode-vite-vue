@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 import Helper from './Helper';
 import StatusbarUi from './StatusbarUi';
 import View from './View';
