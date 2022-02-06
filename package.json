@@ -10,14 +10,15 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vite-vue.toggleWebview"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "vite-vue.toggleWebview",
-        "title": "vite-vue.toggleWebview"
+        "title": "vite-vue.toggleWebview",
+        "icon": "$(zap)"
       }
     ]
   },

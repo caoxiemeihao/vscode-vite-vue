@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import Helper from './Helper';
+import StatusbarUi from './StatusbarUi';
 import View from './View';
 
 export class App {
@@ -8,19 +10,25 @@ export class App {
   constructor(ctx: vscode.ExtensionContext) {
     this.ctx = ctx;
 
+    StatusbarUi.init();
+
     ctx.subscriptions.push(vscode.commands.registerCommand(
-      'vite-vue.toggleWebview',
+      Helper.commands.TOGGLE_WEBVIEW,
       this.webviewHandle.bind(this),
     ));
   }
 
+  /**
+   * @see https://code.visualstudio.com/api/extension-guides/webview
+   */
   private webviewHandle() {
     if (this.panel) {
+      // If we already have a panel, show it in the target column (webview 单例)
       this.panel.reveal(vscode.window.activeTextEditor?.viewColumn);
     } else {
       this.panel = vscode.window.createWebviewPanel(
-        'vite-vue view',
-        'vite ⚡️ vue',
+        Helper.APPID,
+        Helper.WEB_TITLE,
         vscode.ViewColumn.One,
         {
           enableScripts: true,
@@ -31,9 +39,9 @@ export class App {
 
       this.panel.onDidChangeViewState(() => {
         if (this.panel?.visible) {
-          console.log('---- 进入 ----');
+          // console.log('---- 进入 ----');
         } else {
-          console.log('---- 离开 ----');
+          // console.log('---- 离开 ----');
         }
       });
 
