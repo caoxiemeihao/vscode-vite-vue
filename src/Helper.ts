@@ -1,7 +1,9 @@
-import * as path from 'path';
+import path = require('path');
 
 export default class Helper {
-  static root = path.join(__dirname, '../');
+  private constructor() { }
+
+  static root = path.join(__dirname, '..');
   static rootResolve(...paths: string[]) {
     return path.join(Helper.root, ...paths);
   }
