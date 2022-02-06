@@ -2,24 +2,16 @@ import * as vscode from 'vscode';
 import View from './View';
 
 export class App {
-  private static commands: Record<string, any> = {};
+  private ctx: vscode.ExtensionContext;
   private panel: vscode.WebviewPanel | null = null;
 
   constructor(ctx: vscode.ExtensionContext) {
+    this.ctx = ctx;
 
-    const TOGGLE_WEBVIEW = 'vite-vue.toggleWebview';
-    ctx.subscriptions.push(vscode.commands.registerCommand(TOGGLE_WEBVIEW, () => {
-      if (App.commands[TOGGLE_WEBVIEW]) {
-        if (this.panel) {
-          this.panel.reveal(vscode.window.activeTextEditor?.viewColumn);
-        } else {
-          this.webviewHandle();
-        }
-      } else {
-        App.commands[TOGGLE_WEBVIEW] = {};
-        this.webviewHandle();
-      }
-    }));
+    ctx.subscriptions.push(vscode.commands.registerCommand(
+      'vite-vue.toggleWebview',
+      this.webviewHandle.bind(this),
+    ));
   }
 
   private webviewHandle() {
@@ -35,16 +27,20 @@ export class App {
         },
       );
 
-      if (this.panel?.webview) {
-        this.panel.webview.html = View.html;
-      }
+      this.panel.webview.html = View.html;
+
+      this.panel.onDidChangeViewState(() => {
+        if (this.panel?.visible) {
+          console.log('---- 进入 ----');
+        } else {
+          console.log('---- 离开 ----');
+        }
+      });
+
+      this.panel.onDidDispose(() => {
+        this.panel = null;
+      }, null, this.ctx.subscriptions);
     }
-
-    // this.panel.onDidChangeViewState((...args) => {});
-
-    this.panel.onDidDispose(() => {
-      this.panel = null;
-    });
   }
 
   dispose() {
