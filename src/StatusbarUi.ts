@@ -1,7 +1,9 @@
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 import Helper from './Helper';
 
 export default class StatusbarUi {
+  private constructor() { }
+
   private static statusBarItem: vscode.StatusBarItem;
 
   /**
