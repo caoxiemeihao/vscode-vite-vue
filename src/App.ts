@@ -36,19 +36,34 @@ export class App {
       );
 
       this.panel.webview.html = View.html;
-
-      this.panel.onDidChangeViewState(() => {
-        if (this.panel?.visible) {
-          // console.log('---- 进入 ----');
-        } else {
-          // console.log('---- 离开 ----');
-        }
-      });
-
-      this.panel.onDidDispose(() => {
-        this.panel = null;
-      }, null, this.ctx.subscriptions);
+      this.panel.webview.onDidReceiveMessage(this.onDidReceiveMessage.bind(this));
+      this.panel.onDidChangeViewState(this.onDidChangeViewState.bind(this));
+      this.panel.onDidDispose(this.onDidDispose.bind(this), null, this.ctx.subscriptions);
     }
+  }
+
+  private onDidReceiveMessage(message: { command: string; payload: any; }) {
+    const { command, payload } = message;
+
+    switch (command) {
+      case '@fetch/plugins':
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  private onDidChangeViewState() {
+    if (this.panel?.visible) {
+      // console.log('---- 进入 ----');
+    } else {
+      // console.log('---- 离开 ----');
+    }
+  }
+
+  private onDidDispose() {
+    this.panel = null;
   }
 
   dispose() {

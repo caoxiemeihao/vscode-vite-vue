@@ -13,6 +13,8 @@ export default class View {
       try {
         const viewPath = Helper.rootResolve('out/view');
         const html = fs.readFileSync(path.join(viewPath, 'index.html'), 'utf8');
+
+        // Replacement vscode source uri
         const sourceUri = Helper.SOURCE_TAG + viewPath;
         this._html = html.replace(/\/\{\{DIST\}\}/g, sourceUri);
       } catch (error) {
