@@ -2,6 +2,10 @@
 
 This is the README for your extension "vite-vue". After writing up a brief description, we recommend including the following sections.
 
+![dark](https://raw.githubusercontent.com/caoxiemeihao/vscode-vite-vue/main/screenshot/dark.png)
+
+![light](https://raw.githubusercontent.com/caoxiemeihao/vscode-vite-vue/main/screenshot/light.png)
+
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
