@@ -4,12 +4,11 @@ import StatusbarUi from './StatusbarUi';
 import View from './View';
 
 export class App {
-  private ctx: vscode.ExtensionContext;
   private panel: vscode.WebviewPanel | null = null;
 
-  constructor(ctx: vscode.ExtensionContext) {
-    this.ctx = ctx;
-
+  constructor(
+    private ctx: vscode.ExtensionContext,
+  ) {
     StatusbarUi.init();
 
     ctx.subscriptions.push(vscode.commands.registerCommand(
