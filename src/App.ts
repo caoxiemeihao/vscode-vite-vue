@@ -34,7 +34,7 @@ export class App {
         },
       );
 
-      this.panel.webview.html = View.html;
+      this.panel.webview.html = View.getHtml(this.panel.webview);
       this.panel.webview.onDidReceiveMessage(this.onDidReceiveMessage.bind(this));
       this.panel.onDidChangeViewState(this.onDidChangeViewState.bind(this));
       this.panel.onDidDispose(this.onDidDispose.bind(this), null, this.ctx.subscriptions);

@@ -10,5 +10,4 @@ export default class Helper {
   };
   static APPID = 'cxmh:vite-vue';
   static WEB_TITLE = 'Vite ⚡️ Vue';
-  static SOURCE_TAG = 'vscode-resource:';
 }
