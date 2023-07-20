@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { vscode } from "./utils";
+import { vscode, replaceVSCodeUri } from "./utils";
+import helloLogo from "./assets/hello-logo.png";
 
 const fetchData = async () => {
   // const res = fetch('https://github.com/caoxiemeihao/vscode-vite-vue/blob/main/package.json?raw=true').then(r => r.text())
@@ -13,15 +14,33 @@ const fetchData = async () => {
   });
 };
 
-const plugins = ref(
-  new Array(9).fill({
+const plugins = ref([
+  {
+    title: "开发环境助手",
+    description: "一键安装 Node.js, npm, git",
+    author: "草鞋没号",
+    icon: replaceVSCodeUri(helloLogo),
+  },
+  {
+    title: "FAT、UAT 开发权限",
+    description: "一键申请",
+    author: "草鞋没号",
+    icon: replaceVSCodeUri(helloLogo),
+  },
+  {
+    title: "npm 物料市场",
+    description: "内网/外网包市场",
+    author: "草鞋没号",
+    icon:  replaceVSCodeUri(helloLogo),
+  },
+  {
     title: "One click integrated ⚡️ Vite",
     description:
       "Real simple to integrated Vue for @vue/cli created vue2 project. | Real simple to integrated Vue for @vue/cli created vue2 project.",
     author: "草鞋没号",
     icon: "https://vitejs.dev/logo.svg",
-  })
-);
+  },
+]);
 </script>
 
 <template>

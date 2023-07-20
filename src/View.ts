@@ -18,6 +18,15 @@ export default class View {
         this.html = html
           .split('\n')
           .map((line) => {
+            if (line.trim() === '</head>') {
+              // Inject the `out/view` path form runtime import assets
+              const webviewUriView = webview.asWebviewUri(vscode.Uri.file(viewPath));
+              return `
+  <script>window.vscode_webview_uri_view = "${webviewUriView.toString()}";</script>
+</head>
+`.trim();
+            }
+
             const matched = line.match(DIST_RE);
             if (!matched) {
               return line;
@@ -25,7 +34,7 @@ export default class View {
 
             const [, dist, asset] = matched;
             const assetPath = path.posix.join(viewPath, asset);
-            // compatible VSCode/Electron version
+            // Compatible VSCode/Electron version
             // 'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.78.1 Chrome/108.0.5359.215 Electron/22.5.1 Safari/537.36'
             const webviewUri = webview.asWebviewUri(vscode.Uri.file(assetPath));
 

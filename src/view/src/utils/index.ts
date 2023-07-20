@@ -9,3 +9,7 @@ export const vscode = acquireVsCodeApi() as {
   }, transfer?: any) => void;
   setState: (newState: any) => void;
 }
+
+export function replaceVSCodeUri(asset: string) {
+  return asset.replace(/\/\{\{DIST\}\}/, window.vscode_webview_uri_view);
+}
